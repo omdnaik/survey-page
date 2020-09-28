@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Survey Form</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Alegreya SC' rel='stylesheet'>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Josefin+Sans:wght@500&family=Ubuntu:wght@500&display=swap"
+        rel="stylesheet">
+    <style rel="stylesheet">
+        body {
+            width: 100%;
+            height: auto;
+            background-color: #ffffff;
+            margin: 0px;
+        }
+
+        #main-body {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-template-areas: "head data";
+        }
+
+        #header {
+            grid-area: head;
+            border-right: #cccccc 1px solid;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #main {
+            grid-area: data;
+            background-color: #f5f7ff;
+        }
+
+        #header #title {
+            font-size: larger;
+            font-weight: 600;
+            font-family: "Ubuntu", sans-serif;
+            color: #055dff;
+            text-align: left;
+            margin-left: 10%;
+            margin-top: 7%;
+            margin-bottom: 15%;
+        }
+
+        #progress-ring__circlePrimary {
+            transition: strokeDashoffset 3s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        #progress-indicator {
+            position: relative;
+            align-self: center;
+            margin-right: 15%;
+        }
+
+        #percent {
+            position: absolute;
+            top: 52px;
+            left: 45px;
+
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        #categories {
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        .category {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7% 0% 5% 10%;
+            font-size: smaller;
+            font-weight: 300;
+            width: 75%;
+            border-left: transparent 2px solid;
+            font-family: "Josefin Sans", sans-serif;
+            font-size: smaller;
+            color: #101010;
+        }
+
+        .category-icon {
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.52);
+        }
+
+        .category:hover {
+            border-left: #055dff 2px solid;
+            color: #2872fc;
+        }
+
+        .category:hover .category-icon {
+            font-size: 18px;
+            color: #2872fc;
+        }
+
+        .category:hover .snacker {
+            background-color: hsl(219, 50%, 90%);
+            color: #2872fc;
+        }
+
+        .snacker {
+            background-color: #e0e0e0;
+            text-align: center;
+            font-size: x-small;
+            width: 25%;
+            height: 20%;
+            border-radius: 30%;
+            padding: 2% 0% 2% 0%;
+        }
+
+        .general {
+            width: 100%;
+            padding-left: 5%;
+        }
+
+        .thought {
+            width: 100%;
+            height: auto;
+            align-self: flex-end;
+            background-color: #f5f5f5;
+            font-family: "Josefin Sans", sans-serif;
+            font-weight: 300;
+            font-size: smaller;
+            text-align: center;
+            color: #101010;
+            margin-top: 35%;
+            padding-top: 20%;
+        }
+
+        .thought .quote {
+            color: #b0b0b0;
+            text-align: left;
+            padding-left: 0%;
+            padding-bottom: 0%;
+            font-style: italic;
+            font-size: 5em;
+            line-height: 0%;
+            position: absolute;
+            top: 12px;
+            left: 5px;
+        }
+
+        .thought p {
+            margin-bottom: 0%;
+            position: relative;
+            padding-left: 9%;
+        }
+
+        #author {
+            text-align: right;
+            color: #101010;
+            padding-top: 3%;
+            padding-right: 5%;
+            padding-bottom: 10%;
+        }
+
+        #description {
+            padding: 2% 0% 0% 1.5%;
+            font-size: x-small;
+            font-family: "Josefin Sans", sans-serif;
+            color: #818181;
+        }
+
+        #survey-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3%;
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        #survey {
+            width: 60%;
+            height: 29.5em;
+        }
+
+        .qNumber {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            font-size: 1.5em;
+            padding-top: 3%;
+        }
+
+        .options label {
+            padding-left: 3%;
+        }
+
+        .qCounter {
+            font-size: 0.6em;
+            font-weight: 500;
+            color: #b0b0b0;
+            line-height: 500%;
+            text-align: left;
+        }
+
+        .qLabel {
+            font-size: 2em;
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+
+        .aTextBox {
+            border-style: none;
+            border-bottom: 1px solid #d0d0d0;
+            width: 100%;
+            font-size: 1.5em;
+            font-family: "Josefin Sans", sans-serif;
+            background-color: transparent;
+            margin-top: 5%;
+            padding: 15px 0;
+        }
+
+        *:focus {
+            outline: none;
+            border: none;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .aTextBox::placeholder {
+            color: #b0b0b0;
+            font-family: "Josefin Sans", sans-serif;
+        }
+
+        #nav-button {
+            margin-top: 5%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .nav-btn {
+            background-color: #055dff;
+            color: #f5f7ff;
+            font-size: x-small;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2% 2% 2% 2%;
+            border-radius: 1em;
+            width: 25%;
+            border: none;
+        }
+
+        #sub-button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 2% 2% 0% 2%;
+            border-radius: 1em;
+            width: 50%;
+            border: none;
+        }
+
+        .nav-icon {
+            font-size: 10px;
+            font-weight: 100;
+        }
+    </style>
+    <script type="text/javascript">
+        var circle;
+        var circumference;
+        var radius;
+        var currentQ = 1;
+        var category;
+        var totalCount = 8;
+
+        function setCategory(currentQ) {
+            category = document.getElementById("category" + currentQ);
+
+            category.children[0].style.color = "#2872fc";
+            category.style.borderLeft = "#055dff 2px solid";
+            category.style.color = "#2872fc";
+            category.children[2].style.backgroundColor = "hsl(219, 50%, 90%)";
+        }
+
+        function unsetCategory(currentQ) {
+            category = document.getElementById("category" + currentQ);
+
+            category.children[0].style.color = "rgba(0, 0, 0, 0.52)";
+            category.style.borderLeft = "transparent 2px solid";
+            category.style.color = "#101010";
+            category.children[2].style.backgroundColor = "#E0E0E0";
+        }
+
+        function getCategory(currentQ) {
+            let currentCategory;
+            if (currentQ <= 4) {
+                currentCategory = 1;
+            } else if (currentQ > 4 && currentQ <= 6) {
+                currentCategory = 2;
+            } else if (currentQ > 6) {
+                currentCategory = 3;
+            }
+
+            return currentCategory;
+        }
+
+        function setPageElements() {
+            circle = document.getElementById("progress-ring__circlePrimary");
+            radius = circle.r.baseVal.value;
+            circumference = 2 * Math.PI * radius;
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = circumference;
+            setProgressOffset(calculatePercent(1));
+            setCategory(1);
+
+            disableButton("btnPrevious");
+            disableButton("submit");
+        }
+
+        function disableButton(btnId) {
+            if (!document.getElementById(btnId).disabled) {
+                document.getElementById(btnId).style.backgroundColor = "#E0E0E0";
+                document.getElementById(btnId).disabled = true;
+            }
+        }
+
+        function enableButton(btnId) {
+            if (document.getElementById(btnId).disabled) {
+                document.getElementById(btnId).style.backgroundColor = "#055dff";
+                document.getElementById(btnId).disabled = false;
+            }
+        }
+
+        function setProgressOffset(percent) {
+            var offset = parseFloat(circumference - (percent / 100) * circumference);
+
+            circle.style.strokeDashoffset = offset;
+
+            document.getElementById("percent").innerHTML = percent + "%";
+        }
+
+        function calculatePercent(currentQ) {
+            return (currentQ / totalCount) * 100;
+        }
+
+        function nextQuestion() {
+            let id;
+            let dElement;
+            if (currentQ != 0) {
+                id = "question" + currentQ;
+                dElement = document.getElementById(id);
+                dElement.style.display = "none";
+                unsetCategory(getCategory(currentQ));
+            }
+
+            currentQ = currentQ + 1;
+            if (currentQ > 8) {
+                currentQ = 1;
+            }
+
+            if (currentQ == 8) {
+                disableButton("btnNext");
+                enableButton("submit");
+            } else {
+                enableButton("btnNext");
+                enableButton("btnPrevious");
+                disableButton("submit");
+            }
+
+            id = "question" + currentQ;
+
+            dElement = document.getElementById(id);
+            dElement.style.display = "block";
+
+            setCategory(getCategory(currentQ));
+
+            setProgressOffset(calculatePercent(currentQ));
+        }
+
+        function prevQuestion() {
+            let id;
+            let dElement;
+            if (currentQ != 0) {
+                id = "question" + currentQ;
+                dElement = document.getElementById(id);
+                dElement.style.display = "none";
+                unsetCategory(getCategory(currentQ));
+            }
+            currentQ = currentQ - 1;
+
+            if (currentQ < 1) {
+                currentQ = 8;
+            }
+
+            if (currentQ == 1) {
+                disableButton("btnPrevious");
+            } else {
+                enableButton("btnPrevious");
+                enableButton("btnNext");
+                disableButton("submit");
+            }
+
+            id = "question" + currentQ;
+
+            dElement = document.getElementById(id);
+            dElement.style.display = "block";
+
+            setCategory(getCategory(currentQ));
+
+            setProgressOffset(calculatePercent(currentQ));
+        }
+
+    </script>
+
+</head>
+
+<body onload="setPageElements();">
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <div id="main-body">
+        <header id="header">
+            <h1 id="title">freeCodeCamp </h1>
+            <div id="progress-indicator">
+                <svg class="progress-ring" height="120px" width="120px">
+
+                    <circle id="progress-ring__circleSecondry" stroke-width="4" stroke="#f5f7ff" fill="transparent" r=52
+                        cx=60 cy=60 />
+                    <circle id="progress-ring__circlePrimary" stroke-width="4" stroke="#055dff" fill="transparent" r=52
+                        cx=60 cy=60 />
+
+                </svg>
+                <!--radius = (width / 2) - (strokeWidth * 2)-->
+                <div id="percent" style="color:#818181">87%</div>
+            </div>
+            <div id="categories">
+                <div id="category1" class="category">
+                    <i class="material-icons-outlined category-icon">account_box</i>
+                    <div class="general">General</div>
+                    <div class="snacker">4</div>
+                </div>
+                <div id="category2" class="category">
+                    <i class="material-icons-outlined category-icon">assessment</i>
+                    <div class="general">Assessment</div>
+                    <div class="snacker">2</div>
+                </div>
+                <div id="category3" class="category">
+                    <i class="material-icons-outlined category-icon">build</i>
+                    <div class="general">Recommendations</div>
+                    <div class="snacker">2</div>
+                </div>
+            </div>
+
+            <div class="thought">
+
+                <p><i class="quote">''</i>Everybody has talent, but ability takes hard work</p>
+                <div id="author"> - Micheal Jordan</div>
+            </div>
+        </header>
+        <main id="main">
+            <p id="description">Thank you for taking the time to help us improve the platform.</p>
+            <form action="" id="survey-form">
+                <div id="survey">
+                    <div id="question1" class="qNumber">
+                        <div class="qCounter">QUESTION 1/8</div>
+                        <label class="qLabel" for="name" id="name-label">Please enter your Full Name</label>
+                        <input class="aTextBox" type="text" id="name" placeholder="Full Name" required />
+                    </div>
+                    <div id="question2" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 2/8</div>
+                        <label class="qLabel" for="email" id="email-label">Please enter your Email Id.</label>
+                        <input class="aTextBox" type="email" id="email" placeholder="Eg. admin@freeCodeCamp.com"
+                            required />
+                    </div>
+                    <div id="question3" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 3/8</div>
+                        <label class="qLabel" for="number" id="number-label">Please enter your Age.</label>
+                        <input class="aTextBox" type="number" id="number" placeholder="Age between 18 to 58" min="18"
+                            max="58" />
+                    </div>
+                    <div id="question4" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 4/8</div>
+                        <label class="qLabel" for="dropdown" id="doprdown-label">What describes you best?</label>
+                        <select class="aTextBox" id="dropdown">
+                            <option value="-1" selected>Select current Role</option>
+                            <option value="S">Student</option>
+                            <option value="F">Full time job</option>
+                            <option value="L">Full time Learner</option>
+                            <option value="N">Prefer not to share</option>
+                            <option value="O">Other</option>
+                        </select>
+                    </div>
+                    <div id="question5" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 5/8</div>
+                        <label class="qLabel" id="recommend-label">Will you recommend freeCodeCamp?</label>
+                        <div class="options">
+                            <input type="radio" name="recommend" id="definitely" value="d"><label for="definitely"
+                                id="definetly-label">Definitely</label>
+                        </div>
+                        <div class="options">
+                            <input type="radio" name="recommend" id="maybe" value="d"><label for="maybe"
+                                id="maybe-label">Maybe</label>
+                        </div>
+                        <div class="options">
+                            <input type="radio" name="recommend" id="not-sure" value="d"><label for="not-sure"
+                                id="not-sure-label">Not sure</label>
+                        </div>
+
+                    </div>
+                    <div id="question6" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 6/8</div>
+                        <label class="qLabel" for="feature" id="feature-label">Favourite feature of
+                            freeCodeCamp?</label>
+                        <select class="aTextBox" id="feature">
+                            <option value="-1" selected>Select an option</option>
+                            <option value="C">Challenges</option>
+                            <option value="P">Projects</option>
+                            <option value="Y">Community</option>
+                            <option value="O">Open source</option>
+                        </select>
+                    </div>
+                    <div id="question7" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 7/8</div>
+                        <label class="qLabel" id="improvement-label">What should to be improved?</label>
+                        <div class="options">
+                            <input type="checkbox" id="front-end" value="front-end-projects"><label for="front-end"
+                                id="frontend-label">Front-end Projects</label>
+                        </div>
+                        <div class="options">
+                            <input type="checkbox" id="visual" value="data-visualization"><label for="visual"
+                                id="visual-label">Data Visualization</label>
+                        </div>
+                        <div class="options">
+                            <input type="checkbox" id="challenges" value="challenges"><label for="challenges"
+                                id="challenges-label">Challenges</label>
+                        </div>
+                        <div class="options">
+                            <input type="checkbox" id="open-source" value="open-source-community"><label
+                                for="open-source" id="open-source-label">Open Source Community</label>
+                        </div>
+                        <div class="options">
+                            <input type="checkbox" id="gitter" value="gitter-help-rooms"><label for="gitter"
+                                id="gitter-label">Gitter help rooms</label>
+                        </div>
+                        <div class="options">
+                            <input type="checkbox" id="city-meetups" value="city-meetups"><label for="city-meetups"
+                                id="meetups-label">City Meetups</label>
+                        </div>
+                    </div>
+                    <div id="question8" class="qNumber" style="display:none">
+                        <div class="qCounter">QUESTION 8/8</div>
+                        <label class="qLabel" id="improvement-label">Any suggestions?</label>
+                        <textArea class="aTextBox" placeholder="Please provide your suggestions"></textArea>
+                    </div>
+
+                    <div id="nav-button">
+                        <button class="nav-btn" type="button" id="btnPrevious" onclick="prevQuestion();"><i
+                                class="material-icons-outlined nav-icon">
+                                west</i> PREVIOUS</button>
+                        <button class="nav-btn" type="button" id="btnNext" onclick="nextQuestion();">NEXT <i
+                                class="material-icons-outlined nav-icon">
+                                east</i></button>
+                    </div>
+                </div>
+                <div id="sub-button">
+                    <button class="nav-btn" type="submit" id="submit">Submit</button>
+                </div>
+            </form>
+
+        </main>
+    </div>
+</body>
+
+</html>

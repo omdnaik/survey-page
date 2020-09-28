@@ -1,0 +1,65 @@
+<html>
+<head>
+    <script type="text/javascript">
+        var circle;
+        var circumference;
+        var radius;
+
+       function setProgressBar() {
+           
+            circle= document.querySelector('.progress-ring__circlePrimary');
+            radius= circle.r.baseVal.value;
+            circumference = 2 * Math.PI * radius;
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = circumference;
+       }
+
+       function setProgressOffset(percent) {
+           var offset = circumference - percent.value/100 * circumference;
+           circle.style.strokeDashoffset = offset;
+
+       }
+
+    </script>
+    <style>
+        .progress-ring__circlePrimary {
+            transition: strokeDashoffset 3s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        
+    </style>
+</head>
+<body style= "background: #212121" onload="setProgressBar();">
+
+    <svg class="progress-ring" height="120px" width="120px">
+
+        <circle 
+        class="progress-ring__circleSecondry" 
+        stroke-width="4" 
+        stroke="#3e4c59" 
+        fill="transparent" 
+        r=52 
+        cx=60 
+        cy=60 
+        />
+        <circle 
+        class="progress-ring__circlePrimary" 
+        stroke-width="4" 
+        stroke="#FFB300" 
+        fill="transparent" 
+        r=52 
+        cx=60 
+        cy=60 
+        />
+        
+      </svg>
+    
+      <input type="text" onblur="setProgressOffset(this);" />
+
+</body>
+
+
+
+  </html>
